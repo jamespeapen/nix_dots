@@ -21,12 +21,17 @@
 
   # packages
   home.packages = with pkgs; [
+    delta
     entr
     exa
     fd
     gcc                             # for neovim treesitter compilation
+    isync
+    msmtp
     oath-toolkit
-    pass
+    (pass.withExtensions (ext: with ext; [
+      pass-tomb
+    ]))
     ripgrep
     youtube-dl
     zoxide
@@ -48,6 +53,10 @@
   xdg.configFile = {
     "nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/nvim;
+      recursive = true;
+    };
+    "git" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/git;
       recursive = true;
     };
   };
