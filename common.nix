@@ -21,11 +21,15 @@
 
   # packages
   home.packages = with pkgs; [
-    fd
+    entr
     exa
+    fd
+    gcc                             # for neovim treesitter compilation
     oath-toolkit
     pass
     ripgrep
+    youtube-dl
+    zoxide
   ];
 
   # neovim
@@ -34,8 +38,18 @@
     extraPackages = with pkgs; [
       (python3.withPackages (ps: with ps; [
         neovim
+        jedi-language-server
       ]))
     ];
+  };
+
+  # config 
+
+  xdg.configFile = {
+    "nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/nvim;
+      recursive = true;
+    };
   };
 
 }
