@@ -11,14 +11,14 @@
   };
 
   outputs = inputs: {
-    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-    defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
+    defaultPackage.x86_64-linux = inputs.home-manager.defaultPackage.x86_64-linux;
+    defaultPackage.x86_64-darwin = inputs.home-manager.defaultPackage.x86_64-darwin;
 
     homeConfigurations = {
-      "james.eapen" = inputs.home-manager.lib.homeManagerConfiguration {
+      "tux" = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
-        homeDirectory = "/home/james.eapen";
-        username = "james.eapen";
+        homeDirectory = "tux";
+        username = "tux";
         configurations.imports = [ ./common.nix ];
       };
     };

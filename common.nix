@@ -37,16 +37,28 @@
     zoxide
   ];
 
-  # neovim
-  programs.neovim = {
-    enable = true;
-    extraPackages = with pkgs; [
-      (python3.withPackages (ps: with ps; [
-        neovim
-        jedi-language-server
-      ]))
-    ];
-  };
+  programs = {
+
+    # neovim
+    neovim = {
+      enable = true;
+      extraPackages = with pkgs; [
+        (python3.withPackages (ps: with ps; [
+          neovim
+          jedi-language-server
+        ]))
+      ];
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true;
+      };
+    };
+
+  }
 
   # config 
 
@@ -57,6 +69,10 @@
     };
     "git" = {
       source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/git;
+      recursive = true;
+    };
+    "zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/zsh;
       recursive = true;
     };
   };
