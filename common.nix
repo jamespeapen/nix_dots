@@ -26,7 +26,9 @@
     exa
     fd
     gcc                             # for neovim treesitter compilation
+    git
     isync
+    make
     msmtp
     oath-toolkit
     (pass.withExtensions (ext: with ext; [
@@ -57,7 +59,7 @@
       };
     };
 
-  }
+  };
 
   # config 
 

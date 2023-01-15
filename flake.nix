@@ -1,28 +1,25 @@
 {
-  description = "Home manager flake to deploy dotfiles";
+    description = "My Home Manager Flake";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
-  };
 
-  outputs = inputs: {
+    outputs = {nixpkgs, home-manager, ...}: {
+        defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+        defaultPackage.x86_64-darwin = home-manager.defaultPackage.x86_64-darwin;
 
-    defaultPackage.x86_64-linux = inputs.home-manager.defaultPackage.x86_64-linux;
+        homeConfigurations = {
+            "tux" = home-manager.lib.homeManagerConfiguration {
+                # Note: I am sure this could be done better with flake-utils or something
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-    homeConfigurations = {
-      "tux" = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        homeDirectory = "tux";
-        username = "tux";
-        configurations.imports = [ ./common.nix ];
-      };
+                modules = [ ./common.nix ];
+            };
+        };
     };
-  };
 }
-
-# vim:set et sw=2 ts=2:
