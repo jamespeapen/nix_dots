@@ -21,12 +21,14 @@
 
   # packages
   home.packages = with pkgs; [
+    bat
     delta
     entr
     exa
     fd
     gcc                             # for neovim treesitter compilation
     git
+    htop
     isync
     make
     msmtp
@@ -36,6 +38,8 @@
     ]))
     ripgrep
     smartmontools
+    tmux
+    vlc
     youtube-dl
     zoxide
   ];
@@ -63,18 +67,20 @@
 
   # ~/.config file symlinks
   xdg.configFile = {
-    "nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/nvim;
+    "fd" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/fd;
       recursive = true;
     };
     "git" = {
       source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/git;
       recursive = true;
     };
-    "zsh" = {
-      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/zsh;
     "i3" = {
       source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/i3;
+      recursive = true;
+    };
+    "nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/nvim;
       recursive = true;
     };
     "sway" = {
@@ -85,6 +91,10 @@
       source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/waybar;
       recursive = true;
     };
+    "zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink ~/Documents/dotfiles/config/zsh;
+      recursive = true;
+    },
   };
 
 }
